@@ -1,0 +1,61 @@
+ TA2Analysis analysis linked to Acqu-to-Root interface
+
+TA2UserAnalysis:  Running PostInitialise before setting up Multi-Hit ADC's
+
+  Child class TA2Tagger linked to TA2UserAnalysis parent
+ Child class TA2Ladder linked to TA2Tagger parent
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+MuHits
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+Doubles
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+MeanTime
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+MeanTimeOR
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+MeanEnergy
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+MeanEnergyOR
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+DiffTime
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+DiffTimeOR
+ Error in operation <Unknown X-variable for histogram> of class TA2Ladder at command line:
+1D NhitsM 64 0 64
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Ladder at command line:
+1D HitsM0 352 0 352
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Ladder at command line:
+1D TimeORM0 600 -100 500
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Ladder at command line:
+1D HitsM1 352 0 352
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Ladder at command line:
+1D TimeORM1 1000 0 500
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Ladder at command line:
+1D HitsM2 352 0 352
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Ladder at command line:
+1D TimeORM2 1000 0 500
+
+ PDG default: particles all photons, PDG index 22
+ Child class TA2CrystalBall linked to TA2UserAnalysis parent
+ Child class TA2CalArray linked to TA2CrystalBall parent
+ Child class TA2PlasticPID linked to TA2CrystalBall parent
+ Found 2 particle-ID 2D Cuts, sector 0, 2 cuts/sector
+ Child class TA2TAPS2009 linked to TA2UserAnalysis parent
+ Child class TA2TAPS_BaF2 linked to TA2TAPS2009 parent
+ Child class TA2PlasticPID linked to TA2TAPS2009 parent
+TA2UserAnalysis:  Reconstruction procedure enabled in event loop
+  Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Compton at command line:
+Mmiss
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Compton at command line:
+Pmiss
+TA2UserAnalysis:  Physics procedure enabled in event loop
+  TA2UserAnalysis periodic command: PeriodMacro()   Interval set to 50000
+ TA2UserAnalysis End-of-file command: EndFile("Cristina") 
+End of File procedures enabled for TA2UserAnalysis
+

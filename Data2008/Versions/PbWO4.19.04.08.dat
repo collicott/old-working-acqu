@@ -1,0 +1,119 @@
+##--Author      JRM Annand   29th Apr 2003
+##--Update      R Gregor...
+##--Description
+##                *** Acqu++ <-> Root ***
+## Online/Offline Analysis of Sub-Atomic Physics Experimental Data
+##
+## Parameter File: TAPS_BaF2.dat
+## Setup of decoding of BaF2 information
+##
+##-----------------------------------------------------------------------
+## Total # Elements in array, Pulse-Height info? Time info? Position info?
+## Info switch is off/on = 0/1
+##      Total   Energy? Time?   Position?
+#
+Size:  24    1       1       1
+RawHits:
+#BitPattern: TAPS.pat
+#
+#
+#
+# Now enter the information for each element....if the number of
+# elements is specified as 10 above then there must be 10 element spec lines
+# ADCs low,high define in MeV the range of a valid hit.
+# ped is the zero-point offset channel and MeV/ch is the ADC conversionsion
+# TDCs low, high define in ns the range of a valid hit.
+# Off is the time-zero offset channel and ns/ch is the conversion gain.
+# Pos 3-vector usually relates to the center of the front face of a crystal
+# assuming origin at center of target, beam in z-direction
+# with Bene's calib-files
+#        ADC#  low  high ped  MeV/ch  TDC#  low/high Off ns/ch  Pos x,y,z (cm)
+Element: 30001 0.10 800.  87 0.42     30201M0 -50 50 -5694 0.1 5.196152 3.000000 150.000000 
+Element: 30002 0.10 800.  91 0.55     30202M0 -50 50 -5692 0.1 10.392304 6.000000 150.000000 
+Element: 30003 0.10 800.  99 0.38     30203M0 -50 50 -5683 0.1 10.392304 0.000000 150.000000 
+Element: 30004 0.10 800.  49 0.25     30204M0 -50 50 -5696 0.1 15.588456 9.000000 150.000000 
+Element: 30005 0.10 800.  88 0.46     30205M0 -50 50 -5703 0.1 15.588456 3.000000 150.000000 
+Element: 30006 0.10 800.  40 0.33     30206M0 -50 50 -5706 0.1 15.588456 -3.000000 150.000000 
+Element: 30007 0.10 800.  85 0.33     30207M0 -50 50 -5701 0.1 20.784609 12.000000 150.000000 
+Element: 30008 0.10 800.  92 0.33     30208M0 -50 50 -5702 0.1 20.784609 6.000000 150.000000 
+Element: 30009 0.10 800.  73 0.41     30209M0 -50 50 -5710 0.1 20.784609 0.000000 150.000000 
+Element: 30010 0.10 800.  65 0.26     30210M0 -50 50 -5683 0.1 20.784609 -6.000000 150.000000 
+Element: 30011 0.10 800. 100 0.39     30211M0 -50 50 -5718 0.1 25.980761 15.000000 150.000000 
+Element: 30012 0.10 800.  32 0.36     30212M0 -50 50 -5662 0.1 25.980761 9.000000 150.000000 
+Element: 30013 0.10 800.  79 0.28     30213M0 -50 50 -5704 0.1 25.980761 3.000000 150.000000 
+Element: 30014 0.10 800.  87 0.22     30214M0 -50 50 -5709 0.1 25.980761 -3.000000 150.000000 
+Element: 30015 0.10 800.  95 0.33     30215M0 -50 50 -5708 0.1 25.980761 -9.000000 150.000000 
+Element: 30016 0.10 800. 101 0.37     30216M0 -50 50 -5704 0.1 31.176912 18.000000 150.000000 
+Element: 30017 0.10 800.  51 0.23     30217M0 -50 50 -5717 0.1 31.176912 12.000000 150.000000 
+Element: 30018 0.10 800.  90 0.36     30218M0 -50 50 -5701 0.1 31.176912 6.000000 150.000000 
+Element: 30019 0.10 800.  48 0.34     30219M0 -50 50 -5722 0.1 31.176912 0.000000 150.000000 
+Element: 30020 0.10 800.  79 0.38     30220M0 -50 50 -5723 0.1 31.176912 -6.000000 150.000000 
+Element: 30021 0.10 800.  70 0.40     30221M0 -50 50 -5719 0.1 31.176912 -12.000000 150.000000 
+Element: 30022 0.10 800.  89 0.16     30222M0 -50 50 -5721 0.1 36.373062 21.000000 150.000000 
+Element: 30023 0.10 800.  93 0.43     30223M0 -50 50 -5711 0.1 36.373062 15.000000 150.000000 
+Element: 30024 0.10 800. 101 0.34     30224M0 -50 50 -5712 0.1 36.373062 9.000000 150.000000 
+#
+##
+Initialise:
+##
+##
+##      Histograming of basic detector stuff
+##
+## Crystal hit multiplicity, 24 channels, range 0--24
+##              Name            ch/low/high     imin/imax
+Display: 1D     Nhits           25 -0.5 24.5
+Display: 1D	NADChits  	25 -0.5 24.5
+Display: 1D	NTDChits  	25 -0.5 24.5
+#Display: 1D	TAPSDiscr	8192 0 8192
+#Display: 1D	TAPSVeto	512 0 512
+#Display: 1D	NPatternHits	48 0 48		0 1
+##
+## Hit frequency distribution, 720 elements, range 0 -- 720
+##              Name            ch/low/high     imin/imax
+Display: 1D     Hits            25 -0.5 24.5
+Display: 1D	ADCHits		25 -0.5 24.5
+Display: 1D	TDCHits		25 -0.5 24.5
+##
+## Total Energy deposited in the array, 1000 channels, range 0 -- 200 MeV
+##              Name            ch/low/high     imin/imax
+#Display: 1D     Etot            400 0 800 
+##
+## Energy deposited in individual crystals, 200 channels, range 0 -- 400 MeV
+## Make histogram for each element (0-509) of the CB
+##              Name            ch/low/high     imin/imax(opt)
+#Display: 1D    Energy          2000  0 400     0 509
+##
+## Energy OR
+Display: 1D    EnergyOR        2000  0 400
+##      Cluster Histograms
+##
+##      1/2D    Name            Chan    Low     High    Imin    Imax
+## Energy in each Cluster
+## Make histogram for each element (0-509)  of the TAPS forward wall
+##              Name            ch/low/high     imin/imax(opt)
+#Display: 1D    ClEnergy        200 0 600       0 509
+##
+## Hit pattern within each cluster
+##              Name            ch/low/high     imin/imax(opt)
+#Display: 1D    ClHits          25 -0.5 24.5         0 509
+##
+## # hits in each cluster
+##              Name            ch/low/high     imin/imax(opt)
+#Display: 1D    ClMulti         64 0 64         0 509
+##
+## # clusters detected per event
+##              Name            ch/low/high     imin/imax(opt)
+#Display: 1D     ClNhits         64 0 64         0 509
+#Display: 1D    ClNhitsOR       16 0 16
+##
+## Cluster center distribution
+##              Name            ch/low/high     imin/imax(opt)
+#Display: 1D     ClTotHits       24 0 24
+##
+#         X-Name  X-ch/low/high/id  Y-Name  Y ch/low/high/id  Condition(opt)
+#Display: 2D ClTheta  100 0 25 -1    ClPhi  180 -180 180 -1
+Display: 2D EnergyOR 100 0 400 -1    Hits   24  0.5 24.5 -1
+Display: 2D TimeOR   100 -50 50 -1    Hits   24  0.5 24.5 -1
+Display: 1D TimeOR 100 -50 50
+#
+#

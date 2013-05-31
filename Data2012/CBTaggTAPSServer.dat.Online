@@ -1,0 +1,46 @@
+##-----------------------------------------------------------------------
+##--Author	JRM Annand   13th Jan 2004
+##--Update	JRM Annand...
+##--Description
+##                *** Acqu++ <-> Root ***
+## Online/Offline Analysis of Sub-Atomic Physics Experimental Data 
+##
+## Parameter File: ServerSetup.dat
+## Default master parameter file for DataServer (data input for analysis)
+## Online data taking, merged ACQU & TAPS
+##
+##-----------------------------------------------------------------------
+## Number of Input streams (sources of data), Record length to write data
+## and switch 0/1 = no/yes to control data write
+##              Number streams	Record Len	Save Data
+Input-Streams:	7		32768		1
+##
+## Optional directory spec. If not specified File-Names must contain the full
+## directory path
+File-Directory:	scratch/
+##
+## Specify each network-socket input stream
+##            	Source	Format	Save?	Node		Port	Buffers MkID Swap
+#
+Stream-Spec:	Network	Mk1	0	a2CBtrigger	3025	256	400
+File-Name:	Trig_Mk1		0	0
+#
+Stream-Spec:	Network	Mk1	0	a2TDCdaq1	3024	512	400
+File-Name:	CB_Mk1		0	0
+#
+Stream-Spec:	Network	Mk1	0	taggerdaq1	3020	256	400
+File-Name:	Tagger_Mk1	0	0
+##
+Stream-Spec:    Network Mk1     0       a2SADCdaq1	3023	256	400
+File-Name:      SADC1_Mk1       0       0
+##
+Stream-Spec:    Network Mk1     0       a2SADCdaq2	3021	256	400
+File-Name:      SADC2_Mk1       0       0
+##
+Stream-Spec:	Network	Mk1	0	a2WCdaq1	3022	128	400
+File-Name:	MWPC_Mk1	0	0
+##
+Stream-Spec:	Network	TAPS	0	taps00		4097	512	29000
+Stream-Options: 1       1       10      19993
+File-Name:      CB_TAPS         0       0
+##

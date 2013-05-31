@@ -1,0 +1,35 @@
+##-----------------------------------------------------------------------
+##--Author	JRM Annand   29th Apr 2003
+##--Update	JRM Annand...
+##--Description
+##                *** Acqu++ <-> Root ***
+## Online/Offline Analysis of Sub-Atomic Physics Experimental Data 
+##
+## Parameter File: TAPSMCapparatus.dat (specified in ROOTMCanalysis.dat)
+## or equivalent
+## Setup analysis of the TAPS apparatus
+## This one sets up an analysis of the BaF2 array (forward wall)
+## and the TAPS Veto detectors
+##
+##-----------------------------------------------------------------------
+#
+# Specify list of detectors which constitute the Crystal Ball apparatus
+#	  Name          Class Name	Setup file
+Detector: TAPS_BaF2	TA2TAPS_BaF2	TAPSMC_BaF2.dat
+#Detector: TAPS_Veto	TA2TAPS_Veto	TAPSMC_Veto.dat
+#
+# Data reconstruction method for Crystal Ball 
+#Reconstruct: Not yet implemented
+#
+# Cut conditions on Crystal Ball variables
+#Condition: Not yet implemented
+#
+# Do some post-initialisation.
+# Should usually be done before display is setup
+Initialise:
+#
+# Histograms of apparatus-level variables
+#Display: Not yet implemented for Crystal Ball
+#
+# Any wild-card stuff here
+#Misc: Not yet implemented

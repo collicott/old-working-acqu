@@ -1,0 +1,58 @@
+ TA2Analysis analysis linked to Acqu-to-Root interface
+
+TA2UserAnalysis:  Running PostInitialise before setting up Multi-Hit ADC's
+
+  Child class TA2Tagger linked to TA2UserAnalysis parent
+ Child class TA2Ladder linked to TA2Tagger parent
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+MuHits
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+MeanEnergy
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Ladder at command line:
+MeanEnergyOR
+ PDG default: particles all photons, PDG index 22
+ Child class TA2CrystalBall linked to TA2UserAnalysis parent
+ Child class TA2CalArray linked to TA2CrystalBall parent
+ Error in operation <Periodicity Input Parse> of class TA2CalArray at command line:
+2
+
+ Error in operation <Unknown X-variable for histogram> of class TA2CalArray at command line:
+ADC 3000 3015
+ Child class TA2PlasticPID linked to TA2CrystalBall parent
+ Found 2 particle-ID 2D Cuts, sector 0, 2 cuts/sector
+ Child class TA2TAPS2009 linked to TA2UserAnalysis parent
+ Child class TA2TAPS_BaF2 linked to TA2TAPS2009 parent
+ HitClusterTAPS_t class used for shower reconstruction
+ Child class TA2PlasticPID linked to TA2TAPS2009 parent
+ Child class TA2PlasticPID linked to TA2TAPS2009 parent
+TA2UserAnalysis:  Reconstruction procedure enabled in event loop
+  Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Cristina at command line:
+Mmiss
+ Error in operation <Load-Variable...NULL variable pointer supplied> of class TA2Cristina at command line:
+Pmiss
+ Error in operation <Unknown X-variable for histogram> of class TA2Cristina at command line:
+1D TAGGNParticle	50 0 50
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Cristina at command line:
+1D CAPPNParticle	10 0 10
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Cristina at command line:
+1D TAPSNParticle	10 0 10
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Cristina at command line:
+1D NPhoton		10 0 10 
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Cristina at command line:
+1D NProton		10 0 10 
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Cristina at command line:
+1D NPi0		10 0 10 
+
+ Error in operation <Unknown X-variable for histogram> of class TA2Cristina at command line:
+1D NUnknown		10 0 10 
+
+TA2UserAnalysis:  Physics procedure enabled in event loop
+  TA2UserAnalysis periodic command: PeriodMacro()   Interval set to 10000
+ TA2UserAnalysis End-of-Run command: FinishMacro("MainFile.root") 
+End of Run procedures enabled for TA2UserAnalysis
+

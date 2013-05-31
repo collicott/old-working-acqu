@@ -1,0 +1,71 @@
+##-----------------------------------------------------------------------
+##--Author	JRM Annand   29th Apr 2003
+##--Update	JRM Annand... 1st Dec 2004
+##--Description
+##                *** Acqu++ <-> Root ***
+## Online/Offline Analysis of Sub-Atomic Physics Experimental Data 
+##
+## Parameter File: EffPhysics.dat
+## Last stage in event-by-event analysis
+##
+##-----------------------------------------------------------------------
+##
+## Target parameters
+##	x,y,z		Mass(MeV)
+# LH2
+Target:	0. 0. 0.	938.27231
+# LD2
+#Target:	0. 0. 0.	1875.613
+##
+## Wild-card stuff for fitting combinations of particles to a reaction
+## Not fully implemented
+Permutations: 1
+##
+## Particle data group database,	max # particles
+ParticleID:				16
+## Limits for meson -> N photons invariant-mass identification
+##		pi0 (MeV)	eta (MeV)
+Mass-Limits:	20.		40.
+## Limits for Prompt-Random Windows for Random Subtraction
+## These take precedence over those in KensTagger...
+##                     Pr      Ran1   Ran2
+Prompt-Random-Windows: 95 105  20 80  120 180
+##
+## Limits for Missing Mass Cut (MeV)
+##                   Lo-E-Lo Lo-E-Hi Hi-E-Lo Hi-E-Hi
+Missing-Mass-Limits: 1800  2000  1800   2000
+##
+## Do some post-initialisation.
+## Should usually be done before display is setup
+Initialise:
+#
+# Cut specification...see apparatus setup, same syntax applies
+#         1/2D Name      Link   Scope          Low/High Limits
+#Data-Cut: 1D   Npi0	 AND    data			1 1
+#Data-Cut: 1D   Npi0	 AND    data			1 1
+#
+# Histograms of physics-level variables
+#         X-Name  X-ch/low/high/id  	Y-Name   Y-ch/low/high/id  Cond(opt)
+#
+Display: 1D Nphoton	16 0 16
+Display: 1D Nproton	16 0 16
+Display: 1D Npiplus	16 0 16
+Display: 1D Nneutron	16 0 16
+Display: 1D Npi0	16 0 16
+Display: 1D Ngprime	16 0 16
+Display: 1D Neta	16 0 16
+Display: 1D Nrootino	16 0 16
+Display: 1D M2g 	400 0 200
+Display: 1D M6g 	400 0 800
+#
+Display: 1D PhotKE 	400 0 800
+Display: 1D PhotTheta 180 0 180
+Display: 1D PhotPhi 	360 -180 180
+#
+Display: 1D ProtKE 	400 0 800
+Display: 1D ProtTheta 180 0 180
+Display: 1D ProtPhi 	360 -180 180
+#
+Display: 1D Pi0KE 	400 0 800
+Display: 1D Pi0Theta 180 0 180
+Display: 1D Pi0Phi 	360 -180 180

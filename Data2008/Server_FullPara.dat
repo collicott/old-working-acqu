@@ -1,0 +1,112 @@
+##-----------------------------------------------------------------------
+##--Author	JRM Annand   13th Jan 2004
+##--Update	JRM Annand... 1st Dec 2004
+##--Description
+##                *** Acqu++ <-> Root ***
+## Online/Offline Analysis of Sub-Atomic Physics Experimental Data 
+##
+## Parameter File: FPcommServer.Offline
+## Configuration file for DataServer (data input for analysis)
+##
+##-----------------------------------------------------------------------
+## Number of Input streams (sources of data), Record length to write data
+## and switch 0/1 = no/yes to control data write
+##              Number streams	Record Len	Save Data
+Input-Streams:	1		32768		0
+##
+## Optional directory spec. If not specified File-Names must contain the full
+## directory path
+File-Directory:	scratch/December2008/raw/
+##
+## Specify each input stream
+## From disk file, ACQU (Mk1) format, save any output to file (save=1)
+## Input data record length, Output data record length
+##
+##            	Source	Format	Save?	RecLen	Buffers	Swap	MarkID
+#Stream-Spec:	File	Mk1	0	32768	32	1	400
+#File-Name:	CB_Mk1_0.dat	0	0
+#Stream-Spec:	File	Mk1	0	32768	32	1	400
+#File-Name:  Tagger_Mk1_0.dat	0	0
+#Stream-Spec:	File	TAPS	0	32768	32	0	29000
+## merge-fix options for TAPS
+##              Offset  Nsearch	MaxDiff Max-ID
+#Stream-Options: 1	1	10	19993
+#File-Name:	CB_TAPS_0.dat	0	0
+##
+##----------------------------------------------------------------------
+##
+## Now the list of data files to analyse normal mode
+## Tagger test data files
+##		File Name	1st rec	Last rec
+Stream-Spec:	File	Mk1	0	32768	32	0	400
+#
+#All Full-target Parallel Polarization files
+#
+File-Name: CB_20851.dat 0 0
+File-Name: CB_20852.dat 0 0
+File-Name: CB_20858.dat 0 0
+File-Name: CB_20859.dat 0 0
+File-Name: CB_20860.dat 0 0
+File-Name: CB_20861.dat 0 0
+File-Name: CB_20866.dat 0 0
+File-Name: CB_20867.dat 0 0
+File-Name: CB_20868.dat 0 0
+File-Name: CB_20869.dat 0 0
+File-Name: CB_20874.dat 0 0
+File-Name: CB_20875.dat 0 0
+File-Name: CB_20879.dat 0 0
+File-Name: CB_20880.dat 0 0
+File-Name: CB_20896.dat 0 0
+File-Name: CB_20899.dat 0 0
+File-Name: CB_20900.dat 0 0
+File-Name: CB_20901.dat 0 0
+File-Name: CB_20902.dat 0 0
+File-Name: CB_20903.dat 0 0
+File-Name: CB_20904.dat 0 0
+File-Name: CB_20914.dat 0 0
+File-Name: CB_20915.dat 0 0
+File-Name: CB_20916.dat 0 0
+File-Name: CB_20917.dat 0 0
+File-Name: CB_20918.dat 0 0
+File-Name: CB_20923.dat 0 0
+File-Name: CB_20924.dat 0 0
+File-Name: CB_20925.dat 0 0
+File-Name: CB_20926.dat 0 0
+File-Name: CB_20931.dat 0 0
+File-Name: CB_20932.dat 0 0
+File-Name: CB_20933.dat 0 0
+File-Name: CB_20934.dat 0 0
+File-Name: CB_20939.dat 0 0
+File-Name: CB_20940.dat 0 0
+File-Name: CB_20941.dat 0 0
+File-Name: CB_20942.dat 0 0
+File-Name: CB_20947.dat 0 0
+File-Name: CB_20948.dat 0 0
+File-Name: CB_20954.dat 0 0
+File-Name: CB_20955.dat 0 0
+File-Name: CB_20960.dat 0 0
+File-Name: CB_20961.dat 0 0
+File-Name: CB_20962.dat 0 0
+File-Name: CB_20986.dat 0 0
+File-Name: CB_20987.dat 0 0
+File-Name: CB_20988.dat 0 0
+File-Name: CB_20993.dat 0 0
+File-Name: CB_20994.dat 0 0
+File-Name: CB_20995.dat 0 0
+File-Name: CB_20996.dat 0 0
+File-Name: CB_21001.dat 0 0
+File-Name: CB_21002.dat 0 0
+File-Name: CB_21003.dat 0 0
+File-Name: CB_21006.dat 0 0
+File-Name: CB_21007.dat 0 0
+File-Name: CB_21013.dat 0 0
+File-Name: CB_21014.dat 0 0
+File-Name: CB_21015.dat 0 0
+File-Name: CB_21016.dat 0 0
+File-Name: CB_21040.dat 0 0
+File-Name: CB_21041.dat 0 0
+File-Name: CB_21042.dat 0 0
+File-Name: CB_21043.dat 0 0
+File-Name: CB_21051.dat 0 0
+File-Name: CB_21052.dat 0 0
+## END

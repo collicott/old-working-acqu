@@ -1,0 +1,654 @@
+//--Author	Cristina C   14th Nov 2011   Basic Form
+
+#include "TA2Trigger.h"
+#include <fstream>
+
+ClassImp(TA2Trigger)
+
+//-----------------------------------------------------------------------------
+TA2Trigger::TA2Trigger( const char* name, TA2Analysis* analysis )
+	:TA2Physics( name, analysis ) 
+{
+// Initialise Detectors
+	fTAGG			= NULL; // Tagger
+	fCAPP			= NULL; // Central Apparatus (PID, MWPC, CB)
+	fTAPS			= NULL; // TAPS
+
+	fNaI			= NULL; // CB
+	fMWPC			= NULL; // MWPC
+	fPID			= NULL; // PID
+
+	fBaF2			= NULL;	// BaF2
+	fVeto			= NULL; // TAPS Vetos
+
+// Cristina Variables
+	fBasicVariable 		= 0;
+	fBasicArray		= NULL;
+
+	fNaINHits		= 0;
+	fPIDNHits		= 0;
+	fBaF2NHits		= 0;
+	fVetoNHits		= 0;
+
+	fNaINCluster 		= 0;
+  	fBaF2NCluster 		= 0;
+
+	fNaIHits		= NULL;
+	fPIDHits		= NULL;
+	fBaF2Hits		= NULL;
+	fVetoHits		= NULL;
+
+	fNaIClusters		= NULL;
+	fNaIClustersNHits	= NULL;
+	fNaIClustersEnergy	= NULL;
+
+	fBaF2Clusters		= NULL;
+	fBaF2ClustersNHits	= NULL;
+	fBaF2ClustersEnergy	= NULL;
+
+	fPhiIndex		= 0;
+	fPhiIndexMin		= 0;
+	fPhiIndexMax		= 0;
+
+	fNaIPhiIndex		= NULL;
+	fBaF2PhiIndex		= NULL;
+	fPIDPhiIndex		= NULL;
+	fPIDPhiIndexMin		= NULL;
+	fPIDPhiIndexMax		= NULL;
+	fVetoPhiIndex		= NULL;
+
+	ChargedI		= NULL;
+	ChargedIMin		= NULL;
+	ChargedIMax		= NULL;
+	NCharged		= 0;
+	NeutralI		= NULL;
+	NNeutral 		= 0;
+	
+	fMultiplicity		= 0;
+	fEnergySumCB		= 0.0;
+
+	fNTrigger		= 0;
+	fNPattern		= 0;
+	fTriggerPattern		= NULL;
+
+	fOneNegative		  = kFALSE;
+	fTrigNeutCoplanarM2 	  = kFALSE;
+	fTrigNeutCoplanarCTrackM2 = kFALSE;		
+
+// Particle properties
+
+	fPhoton 		= NULL;	
+	fProton			= NULL;
+
+	fNPhoton		= 0;
+	fNProton		= 0;
+
+	fPhotonEnergy		= NULL;
+	fPhotonTheta		= NULL;
+	fPhotonPhi		= NULL;
+	fPhotonTime		= NULL;
+
+	fProtonEnergy		= NULL;
+	fProtonTheta		= NULL;
+	fProtonPhi		= NULL;
+	fProtonTime		= NULL;
+
+}
+
+
+//-----------------------------------------------------------------------------
+TA2Trigger::~TA2Trigger()
+{
+
+// Delete Tree Files
+	delete fTriggerTree;
+	delete fTriggerFile;
+
+}
+	
+
+//-----------------------------------------------------------------------------
+void TA2Trigger::SetConfig(Char_t* line, Int_t key)
+{
+	// Any special command-line input for Crystal Ball apparatus
+
+	switch (key){
+		default:
+		// default main apparatus SetConfig()
+		TA2Physics::SetConfig( line, key );
+		break;
+	}
+}
+
+//---------------------------------------------------------------------------
+void TA2Trigger::PostInit()
+{
+	printf("\n\n");
+
+// Introduce Detectors
+
+	// Tagger
+	fTAGG = (TA2Tagger*)((TA2Analysis*)fParent)->GetChild("TAGG");
+	if ( !fTAGG) PrintError("","<No Tagger class found>",EErrFatal);
+	else printf("Tagger included in analysis\n");
+
+	// Ladder
+	fLADD = (TA2Ladder*)((TA2Analysis*)fParent)->GetGrandChild( "FPD");
+	if ( !fLADD) PrintError( "", "<No Ladder class found>", EErrFatal);
+	else printf(" - Focal plane included in analysis\n\n");
+
+	// Central Apparatus
+//	fCAPP = (TA2CentralApparatus*)((TA2Analysis*)fParent)->GetChild("CentApp");
+	fCAPP = (TA2CrystalBall*)((TA2Analysis*)fParent)->GetChild("CB");
+	if (!fCAPP) PrintError( "", "<No Central Apparatus/CB class found>", EErrFatal);
+	else {  printf("CB system included in analysis\n");
+		fCAPPParticles  = fCAPP->GetParticles(); }
+
+	// NaI
+	fNaI = (TA2CalArray*)((TA2Analysis*)fParent)->GetGrandChild("NaI");
+	if (!fNaI) printf(" - NaI NOT included in analysis\n");
+	else printf(" - NaI included in analysis\n");
+
+	// Pid
+	fPID = (TA2PlasticPID*)((TA2Analysis*)fParent)->GetGrandChild("PID");
+	if (!fPID) printf(" - PID NOT included in analysis\n");
+	else printf(" - PID included in analysis\n");
+
+	// Mwpc
+	fMWPC = (TA2CylMwpc*)((TA2Analysis*)fParent)->GetGrandChild("CylMWPC");
+	if (!fMWPC) printf(" - Wire Chambers NOT included in analysis\n\n");
+	else printf(" - Wire Chambers included in analysis\n\n");
+
+	// TAPS
+	fTAPS = (TA2TAPS2009*)((TA2Analysis*)fParent)->GetChild("TAPS");
+	if ( !fTAPS) printf("TAPS *NOT* included in analysis\n");
+	else {  printf("TAPS included in analysis\n");
+		fTAPSParticles = fTAPS->GetParticles(); }
+
+	// BaF2
+	fBaF2 = (TA2TAPS_BaF2*)((TA2Analysis*)fParent)->GetGrandChild("BaF2");
+	if (!fBaF2) printf(" - BaF2 NOT included in analysis\n\n");
+	else printf(" - BaF2 included in analysis\n");
+
+	// Vetos
+	fVeto = (TA2PlasticPID*)((TA2Analysis*)fParent)->GetGrandChild("VetoBaF2");
+	if (!fVeto) printf(" - BaF2 Vetos NOT included in analysis\n\n");
+	else printf(" - BaF2 Vetos included in analysis\n\n");
+
+
+// Random
+ 	fBasicArray		= new Int_t[5];
+
+	fNaIHits		= new Int_t[720];
+	fPIDHits		= new Int_t[24];
+	fBaF2Hits		= new Int_t[384];
+	fVetoHits		= new Int_t[384];
+
+	fNaIClusters		= new Int_t[90];
+	fNaIClustersNHits	= new Int_t[90];
+	fNaIClustersEnergy	= new Double_t[90];
+
+	fBaF2Clusters		= new Int_t[6];
+	fBaF2ClustersNHits	= new Int_t[6];
+	fBaF2ClustersEnergy	= new Double_t[6];
+
+	fNaIPhiIndex		= new Int_t[720];
+	fBaF2PhiIndex		= new Int_t[384];
+	fPIDPhiIndex		= new Int_t[204];
+	fPIDPhiIndexMin		= new Int_t[240];
+	fPIDPhiIndexMax		= new Int_t[240];
+	fVetoPhiIndex		= new Int_t[384];
+
+	ChargedI		= new Int_t[408];
+	ChargedIMin		= new Int_t[408]; 
+	ChargedIMax		= new Int_t[408];
+	NeutralI		= new Int_t[1104];
+
+	fTriggerPattern		= new Int_t[20];
+
+// Particle Information
+
+	fCAPPMaxNParticle 		= fCAPP->GetMaxParticle();	
+	if (fTAPS) fTAPSMaxNParticle	= fTAPS->GetMaxParticle(); 
+	else 	   fTAPSMaxNParticle 	= 0;
+	
+	fMaxNParticle		= fCAPPMaxNParticle + fTAPSMaxNParticle;  
+
+	fPhoton 		= new TA2Particle*[fMaxNParticle];	
+	fProton			= new TA2Particle*[fMaxNParticle];
+
+	fPhotonEnergy		= new Double_t[fMaxNParticle];
+	fPhotonTheta		= new Double_t[fMaxNParticle];
+	fPhotonPhi		= new Double_t[fMaxNParticle];
+	fPhotonTime		= new Double_t[fMaxNParticle];
+
+	fProtonEnergy		= new Double_t[fMaxNParticle];
+	fProtonTheta		= new Double_t[fMaxNParticle];
+	fProtonPhi		= new Double_t[fMaxNParticle];
+	fProtonTime		= new Double_t[fMaxNParticle];
+
+// Open NaI and TAPS phi configuration files
+
+	Char_t* name = Form("data/PhiIndex_NaI.dat");
+	ifstream inFile1( name);
+	if ( !inFile1.is_open()) {
+		PrintError("","<No NaI Phi Index data file found>",EErrFatal);
+	}
+
+	while( !inFile1.eof()) {
+  		inFile1 >> i >> fPhiIndex;
+		fNaIPhiIndex[i]	   = fPhiIndex;
+	}
+	inFile1.close();
+
+
+	name = Form("data/PhiIndex_PID.dat");
+	ifstream inFile2( name);
+	if ( !inFile2.is_open()) {
+		PrintError("","<No PID Phi Index data file found>",EErrFatal);
+	}
+
+	while( !inFile2.eof()) {
+  		inFile2 >> i >> fPhiIndex >> fPhiIndexMin >> fPhiIndexMax;
+		fPIDPhiIndex[i]	   = fPhiIndex;
+		fPIDPhiIndexMin[i] = fPhiIndexMin;
+		fPIDPhiIndexMax[i] = fPhiIndexMax;
+//		printf("%d , %d, %d, %d \n",i,fPIDPhiIndex[i],fPIDPhiIndexMin[i],fPIDPhiIndex[i]);
+	}
+
+	inFile2.close();
+
+	name = Form("data/PhiIndex_BaF2.dat");
+	ifstream inFile3( name);
+	if ( !inFile3.is_open()) {
+		PrintError("","<No BaF2 Phi Index file found>",EErrFatal);
+	}
+
+	while( !inFile3.eof()) {
+  		inFile3 >> i >> fPhiIndex;
+		fBaF2PhiIndex[i]    = fPhiIndex;
+		fVetoPhiIndex[i]    = fPhiIndex;
+
+	}
+
+	inFile3.close();
+
+// Create Tree Files, Define Branches
+
+	fTriggerFile = new TFile("TA2Trigger.root", "RECREATE", "Trigger", 3);
+	fTriggerTree = new TTree("TA2TriggerTree", "Compton Kinematics");
+
+	fTriggerTree->Branch("BasicVariable",	&fBasicVariable,    "BasicVariable/I");
+	fTriggerTree->Branch("BasicArray",	fBasicArray, 	    "BasicArray[BasicVariable]/I");
+
+	fTriggerTree->Branch("NaINHits",	&fNaINHits, 	    "NaINHits/I");
+	fTriggerTree->Branch("PIDNHits",	&fPIDNHits, 	    "PIDNHits/I");
+	fTriggerTree->Branch("BaF2NHits",	&fBaF2NHits, 	    "BaF2NHits/I");
+	fTriggerTree->Branch("VetoNHits",	&fVetoNHits, 	    "VetoNHits/I");
+
+	fTriggerTree->Branch("NaINCluster",	&fNaINCluster, 	    "NaINCluster/I");
+	fTriggerTree->Branch("BaF2NCluster",	&fBaF2NCluster,     "BaF2NCluster/I");
+
+	fTriggerTree->Branch("NaIHits",		fNaIHits, 	    "NaIHits[NaINHits]/I");
+	fTriggerTree->Branch("PIDHits",		fPIDHits, 	    "PIDHits[PIDNHits]/I");
+	fTriggerTree->Branch("BaF2Hits",	fBaF2Hits, 	    "BaF2Hits[BaF2NHits]/I");
+	fTriggerTree->Branch("VetoHits",	fVetoHits, 	    "VetoHits[VetoNHits]/I");
+
+	fTriggerTree->Branch("NaIClusters",	 fNaIClusters, 	    "NaIClusters[NaINCluster]/I");
+	fTriggerTree->Branch("NaIClustersNHits", fNaIClustersNHits, "NaIClustersNHits[NaINCluster]/I");
+	fTriggerTree->Branch("NaIClustersEnergy",fNaIClustersEnergy,"NaIClustersEnergy[NaINCluster]/I");
+
+	fTriggerTree->Branch("BaF2Clusters",	  fBaF2Clusters,      "BaF2Clusters[BaF2NCluster]/I");
+	fTriggerTree->Branch("BaF2ClustersNHits", fBaF2ClustersNHits, "BaF2ClustersNHits[BaF2NCluster]/I");
+	fTriggerTree->Branch("BaF2ClustersEnergy",fBaF2ClustersEnergy,"BaF2ClustersEnergy[BaF2NCluster]/I");
+
+	fTriggerTree->Branch("Multiplicity",	&fMultiplicity,     "Multiplicity/I");
+	fTriggerTree->Branch("EnergySumCB",	&fEnergySumCB,      "EnergySumCB/D");
+
+	fTriggerTree->Branch("NPattern",	&fNPattern,  	    "NPattern/I");
+	fTriggerTree->Branch("TriggerPattern",	fTriggerPattern,    "TriggerPattern[NPattern]/I");
+
+	fTriggerTree->Branch("NPhoton",		&fNPhoton, 	    "NPhoton/I");
+	fTriggerTree->Branch("NProton",		&fNProton, 	    "NProton/I");
+
+	fTriggerTree->Branch("PhotonEnergy",	fPhotonEnergy,	    "PhotonEnergy[NPhoton]/D");
+	fTriggerTree->Branch("PhotonTheta",	fPhotonTheta, 	    "PhotonTheta[NPhoton]/D");
+	fTriggerTree->Branch("PhotonPhi",	fPhotonPhi, 	    "PhotonPhi[NPhoton]/D");
+	fTriggerTree->Branch("PhotonTime",	fPhotonTime, 	    "PhotonTime[NPhoton]/D");
+
+	fTriggerTree->Branch("ProtonEnergy",	fProtonEnergy,	    "ProtonEnergy[NProton]/D");
+	fTriggerTree->Branch("ProtonTheta",	fProtonTheta, 	    "ProtonTheta[NProton]/D");
+	fTriggerTree->Branch("ProtonPhi",	fProtonPhi, 	    "ProtonPhi[NProton]/D");
+	fTriggerTree->Branch("ProtonTime",	fProtonTime, 	    "ProtonTime[NProton]/D");
+
+	gROOT->cd();
+	
+	// Default physics initialisation
+	TA2Physics::PostInit();
+
+}
+
+//-----------------------------------------------------------------------------
+void TA2Trigger::LoadVariable( )
+{
+
+// Input name - variable pointer associations for any subsequent cut/histogram setup
+
+	TA2Physics::LoadVariable();
+	TA2DataManager::LoadVariable("BasicVariable", 	&fBasicVariable,	EISingleX);
+	TA2DataManager::LoadVariable("BasicArray", 	fBasicArray,		EIMultiX);
+
+	TA2DataManager::LoadVariable("NaINHits", 	&fNaINHits,		EISingleX);
+	TA2DataManager::LoadVariable("PIDNHits", 	&fPIDNHits,		EISingleX);
+	TA2DataManager::LoadVariable("BaF2NHits", 	&fBaF2NHits,		EISingleX);
+	TA2DataManager::LoadVariable("VetoNHits", 	&fVetoNHits,		EISingleX);
+
+	TA2DataManager::LoadVariable("NaIHits", 	fNaIHits,		EIMultiX);
+	TA2DataManager::LoadVariable("PIDHits", 	fPIDHits,		EIMultiX);
+	TA2DataManager::LoadVariable("BaF2Hits", 	fBaF2Hits,		EIMultiX);
+	TA2DataManager::LoadVariable("VetoHits", 	fVetoHits,		EIMultiX);
+
+	TA2DataManager::LoadVariable("TriggerPattern", 	fTriggerPattern,	EIMultiX);
+
+	return;
+}
+
+//-----------------------------------------------------------------------------
+void TA2Trigger::Reconstruct() 
+{
+	fCAPPNParticle 		  = fCAPP->GetNparticle();
+	if (fTAPS) fTAPSNParticle = fTAPS->GetNparticle(); 
+	else       fTAPSNParticle = 0;
+	fNParticle	 	  = fCAPPNParticle + fTAPSNParticle;
+
+// Sort according to Particle type
+	
+	fNPhoton		= 0;
+	fNProton		= 0;
+
+	// CentAPP
+	for ( i = 0; i < fCAPPNParticle; i++ ) {
+
+		switch( (fCAPPParticles+i)->GetParticleID() ) { 
+
+		case kGamma:                               	
+		fPhoton[fNPhoton] 	= fCAPPParticles+i;     
+		fNPhoton++;					
+		break;
+
+		case kProton:                               	
+		fProton[fNProton]	= fCAPPParticles+i;     
+		fNProton++;					
+		break;
+
+		}						
+	}							
+
+	// TAPS
+	if(fTAPS) {
+	for ( i = 0; i < fTAPSNParticle; i++ ) {
+
+		switch( (fTAPSParticles+i)->GetParticleID() ) { 
+
+		case kGamma:                               	
+	        fPhoton[fNPhoton] 	= fTAPSParticles+i;     
+	        fNPhoton++;					
+	        break;
+
+		case kProton:                               	
+	        fProton[fNProton] 	= fTAPSParticles+i;     
+	        fNProton++;					
+	        break;
+
+	        }						
+	}							
+	}							
+
+// Fill Proton and Photon properties
+
+	for ( i = 0; i< fNPhoton; i++) {
+		TA2Particle photon 	= *fPhoton[i];
+		fPhotonEnergy[i]	= photon.GetT();
+		fPhotonTheta[i]		= photon.GetThetaDg();
+		fPhotonPhi[i]		= photon.GetPhiDg();
+		fPhotonTime[i]		= photon.GetTime();
+	}
+
+	for ( i = 0; i< fNProton; i++) {
+		TA2Particle proton 	= *fProton[i];
+		fProtonEnergy[i]	= proton.GetT();
+		fProtonTheta[i]		= proton.GetThetaDg();
+		fProtonPhi[i]		= proton.GetPhiDg();
+		fProtonTime[i]		= proton.GetTime();
+	}
+
+
+// Get # of Hits/Clusters from detectors
+
+	fNaINHits	= 0;	
+	fPIDNHits	= 0;
+	fBaF2NHits	= 0;
+	fVetoNHits	= 0;
+
+	fNaINHits	= fNaI->GetNhits();	
+	fPIDNHits	= fPID->GetNhits();
+	fBaF2NHits	= fBaF2->GetNhits();
+	fVetoNHits	= fVeto->GetNhits();
+
+	fNaINCluster  	= fNaI->GetNCluster();
+  	fBaF2NCluster	= fBaF2->GetNCluster();
+
+
+// Get Hits/Clusters from detectors
+
+	for (i = 0; i < fNaINHits; i++) {
+	fNaIHits[i] = fNaI->GetHits(i);
+	fEnergySumCB = fNaI->GetEnergy(fNaIHits[i]);
+	}
+
+	for (i = 0; i < fPIDNHits; i++)	{ 
+	fPIDHits[i]	= fPID->GetHits(i); 
+	}
+
+	for (i = 0; i < fBaF2NHits; i++) { 
+	fBaF2Hits[i]	= fBaF2->GetHits(i);	
+	}
+
+	for (i = 0; i < fVetoNHits; i++) { 
+	fVetoHits[i]	= fVeto->GetHits(i);	
+	}
+
+	for (i = 0; i < fNaINCluster; i++) { 
+	fNaIClusters[i]		= floor(fNaI->GetClustHit(i)/16);
+	fNaIClustersNHits[i]  	= fNaI->GetNClustHitOR(i);
+	fNaIClustersEnergy[i] 	= fNaI->GetClEnergyOR(i);
+	}
+
+	for (i = 0; i < fBaF2NCluster; i++) { 
+	fBaF2Clusters[i]	= floor(fBaF2->GetClustHit(i)/16);
+	fBaF2ClustersNHits[i]  	= fBaF2->GetNClustHitOR(i);
+	fBaF2ClustersEnergy[i] 	= fBaF2->GetClEnergyOR(i);
+	}
+
+
+// Initialise trigger pattern variables
+
+	fTrigNeutCoplanarM2 	   = kFALSE;
+	fTrigNeutCoplanarCTrackM2  = kFALSE;
+	fOneNegative 		   = kFALSE;
+
+	NCharged   = NNeutral  	   = 0;
+	fNPattern  = fNTrigger 	   = 0;
+
+// Evaluate Hits pattern in all detectors to determine trigger conditions
+// Hits in NaI and BaF2 (neutral) are used to form a coplanarity condition
+// Hits in PID and Veto (charged) are used to form a charged track condition
+// Multiplicity condition is calculated from NaI clusters + BaF2 sections
+
+// Neutral Hits 
+	for (i = 0; i < fNaINHits; i++) {
+	    c1 = fNaIHits[i];
+	    NeutralI[i] = fNaIPhiIndex[c1];
+	}
+
+	for (i = 0; i < fBaF2NHits; i++) {
+	    c1 = fBaF2Hits[i];
+	    j  = i + fNaINHits;
+	    NeutralI[j] = fBaF2PhiIndex[c1];
+	}
+
+	NNeutral = fNaINHits + fBaF2NHits;
+
+// Charged Hits
+	for (i = 0; i < fPIDNHits; i++) {
+	    c1 = fPIDHits[i];
+
+	    if (fPIDPhiIndexMin[c1] <= fPIDPhiIndexMax[c1]) {
+		ChargedIMin[i]  = fPIDPhiIndexMin[c1];
+		ChargedIMax[i]  = fPIDPhiIndexMax[c1];
+	    }
+	    else {
+		ChargedIMin[i]  = fPIDPhiIndexMax[c1];
+		ChargedIMax[i]  = fPIDPhiIndexMin[c1];
+	    }
+//	    printf("PID %d (%d,%d)-(%d,%d), ",c1,fPIDPhiIndexMin[c1],fPIDPhiIndexMax[c1],ChargedIMin[i],ChargedIMax[i]);
+
+	    if (fPIDPhiIndexMin[c1] > 24 || fPIDPhiIndexMin[c1] < -24 || fPIDPhiIndexMax[c1] > 24 || fPIDPhiIndexMax[c1] < -24){
+		for (Int_t ff = 0; ff <24; ff++){
+			printf("!!!!!!! %d %d %d \n",ff,fPIDPhiIndexMin[ff],fPIDPhiIndexMax[ff]);
+		}
+	    }
+
+	}
+
+	for (i = 0; i < fVetoNHits; i++) {
+	    c1 = fVetoHits[i];
+	    j  = i + fPIDNHits;
+
+	    ChargedIMin[j]  = fVetoPhiIndex[c1]; 
+	    ChargedIMax[j]  = fVetoPhiIndex[c1]; 
+//	    printf("VETO %d (%d,%d), ",c1,ChargedIMin[j],ChargedIMax[j]);
+	
+	}
+
+	NCharged = fPIDNHits + fVetoNHits;
+
+// Evaluate trigger conditions
+
+	fMultiplicity = fNaINCluster + fBaF2NCluster;
+
+	fTriggerPattern[fNPattern] = 0; // Count total events
+	fNPattern++;
+
+	for (i = 0; i < NNeutral; i++){
+	    for (j = (i+1); j < NNeutral; j++){
+
+		fOneNegative = kFALSE;
+		if ((NeutralI[i] <= 0) && (NeutralI[j] >= 0)) fOneNegative = kTRUE;
+		if ((NeutralI[i] >= 0) && (NeutralI[j] <= 0)) fOneNegative = kTRUE;
+
+		n = TMath::Abs(NeutralI[i]) + TMath::Abs(NeutralI[j]);
+
+	        if (n >= 23 && n <= 25 && fOneNegative == kTRUE && fMultiplicity == 2) {
+
+		    for (a = 0; a < NCharged; a++){
+	//			printf("a = %d , ChargedIMin[a] = %d, ChargedIMax[a] = %d ,\n",a, ChargedIMin[a], ChargedIMax[a]);
+		    		for (b = ChargedIMin[a]; b <= ChargedIMax[a]; b++) { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+		       		}
+		    }
+	        }
+	    }
+	}
+//	done:
+
+
+// Fill Tree File
+	fBasicVariable 		= 4;
+
+	for ( i = 0; i < fBasicVariable; i++ ) {
+		fBasicArray[i] = 5;
+
+	}	
+	fBasicArray[fBasicVariable]	= EBufferEnd;
+
+	fNaIHits[fNaINHits]    		= EBufferEnd;
+	fPIDHits[fPIDNHits]    		= EBufferEnd;
+	fBaF2Hits[fBaF2NHits]   	= EBufferEnd;
+	fVetoHits[fVetoNHits]   	= EBufferEnd;
+
+	fNaIClusters[fNaINCluster]	= EBufferEnd;
+	fNaIClustersNHits[fNaINCluster]	= EBufferEnd;
+	fNaIClustersEnergy[fNaINCluster]= EBufferEnd;
+
+	fBaF2Clusters[fBaF2NCluster]	   = EBufferEnd;
+	fBaF2ClustersNHits[fBaF2NCluster]  = EBufferEnd;
+	fBaF2ClustersEnergy[fBaF2NCluster] = EBufferEnd;
+
+	fTriggerPattern[fNPattern] 	= EBufferEnd;
+	
+	fPhotonEnergy[fNPhoton]		= EBufferEnd;
+	fPhotonTheta[fNPhoton]		= EBufferEnd;
+	fPhotonPhi[fNPhoton]		= EBufferEnd;
+	fPhotonTime[fNPhoton]		= EBufferEnd;
+
+	fProtonEnergy[fNProton]		= EBufferEnd;
+	fProtonTheta[fNProton]		= EBufferEnd;
+	fProtonPhi[fNProton]		= EBufferEnd;
+	fProtonTime[fNProton]		= EBufferEnd;
+
+	fTriggerTree->Fill();
+
+}
+
+/*	for (i = 0; i < NNeutral; i++){
+	    for (j = (i+1); j < NNeutral; j++){
+
+		fOneNegative = kFALSE;
+		if ((NeutralI[i] <= 0) && (NeutralI[j] >= 0)) fOneNegative = kTRUE;
+		if ((NeutralI[i] >= 0) && (NeutralI[j] <= 0)) fOneNegative = kTRUE;
+
+		n = TMath::Abs(NeutralI[i]) + TMath::Abs(NeutralI[j]);
+
+		// Require coplarity between two neutral hits, include TAPS 
+
+//	        if (fTrigNeutCoplanarM2 == kTRUE) goto nexttrigger;
+	        if (n >= 23 && n <= 25 && fOneNegative == kTRUE && fMultiplicity == 2) {
+		    fTriggerPattern[fNPattern]  = 1;
+		    fTrigNeutCoplanarM2 	= kTRUE;
+		    fNPattern++;
+		    fNTrigger++;
+	        }
+
+//		nexttrigger:
+		// Require coplarity between two neutral hits, NaI and BaF2 
+		// Check the coplanar neutral hits and require a matched charged index 
+		
+//	        if (fTrigNeutCoplanarCTrackM2 == kTRUE) goto checkalltriggers;
+	        if (n >= 23 && n <= 25 && fOneNegative == kTRUE && fMultiplicity == 2) {
+
+		    for (a = 0; a < NCharged; a++){
+			printf("a = %d ,",a);
+		    	for (b = ChargedIMin[a]; b <= ChargedIMax[a]; b++) { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+			printf("b = %d ,\n",b);
+//			
+//			    k = NeutralI[i] - b;
+//			    m = NeutralI[j] - b;
+//
+//			    if ((k >= -1 && k <= 1) || (m >= -1 && m <= 1)) { 
+//				fTriggerPattern[fNPattern] = 2;
+//				fTrigNeutCoplanarCTrackM2  = kTRUE;
+//				fNPattern++;
+//				fNTrigger++;
+//				goto checkalltriggers;
+//			    }
+		        }
+		    }
+	        }
+
+//	    checkalltriggers:
+//	    if (fTrigNeutCoplanarM2 == kTRUE && fTrigNeutCoplanarCTrackM2 == kTRUE) goto done;
+
+	    }
+	}
+//	done:
+*/

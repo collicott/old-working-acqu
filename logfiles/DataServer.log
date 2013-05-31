@@ -1,0 +1,10 @@
+TA2DataServer: Starting configuration from file
+ TA2FileSource: Starting data file read
+
+ Resetting fAmax of module 10 from 1 to 0
+TA2FileSource: read 17088 records from file scratch/CB_20854.dat
+TA2FileSource: Completed list of data files for analysis.
+
+ TA2DataServer: End of run detected
+ TA2DataServer: Shutdown Message received
+ 

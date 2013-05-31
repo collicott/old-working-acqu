@@ -1,0 +1,58 @@
+2008-12-11	20724	18:07	18:20	TaggEff_20724.dat	  88M	13	tagg eff background Pb-glass in
+2008-12-11	20725	18:23	19:14	TaggEff_20725.dat	 327M	51	tagg eff 5kHz
+2008-12-11	20726	19:21	19:33	TaggEff_20726.dat	  85M	12	tagg eff background Pb-glass out
+2008-12-12	20727	11:23	11:45	TaggEff_20727.dat	 320M	22	test
+2008-12-12	20728	13:49	15:04	TaggEff_20728.dat	 551M	75	TaggEff 10um Cu, 855 MeV, 3mm colli
+2008-12-12	20729	15:04	16:02	TaggEff_20729.dat	 421M	58	HV tune tagger
+2008-12-12	20730	16:02	16:29	TaggEff_20730.dat	 165M	27	10um Cu, 3mm colli, amorphous after HV tune
+2008-12-12	20731	16:35	16:39	TaggEff_20731.dat	  26M	 4	30um diamond 3mm colli tagg eff PARA
+2008-12-12	20732	16:40	16:55	TaggEff_20732.dat	 115M	15	30um diamond 3mm colli tagg eff PARA
+2008-12-12	20733	16:56	17:11	TaggEff_20733.dat	 115M	15	30um diamond 3mm colli tagg eff PERP
+2008-12-13	20734	11:50	11:58	TaggEff_20734.dat	  58M	 8	TaggEffBackground PARA 3mil coli
+2008-12-13	20735	12:07	12:21	TaggEff_20735.dat	 105M	14	TaggEff rad diamond PARA 3mil colli lH2
+2008-12-13	20736	12:22	12:37	TaggEff_20736.dat	 118M	15	TagEff di PERP, 3mm colli, lH2
+2008-12-13	20737	12:44	13:00	TaggEff_20737.dat	 117M	16	Tagging Efficiency, cu , 3mm colli, lH2
+2008-12-13	20738	13:02	13:10	TaggEff_20738.dat	  50M	 8	Tagg Eff Background
+2008-12-14	20835	19:56	20:06	TaggEff_20835.dat	  73M	10	tagg eff background Pb-glass in
+2008-12-14	20836	20:16	20:36	TaggEff_20836.dat	 132M	20	tagg eff 5 kHz on Pb-glass PERP
+2008-12-14	20837	20:38	20:56	TaggEff_20837.dat	 122M	18	tagg eff 5 kHz on Pb-glass PARA
+2008-12-14	20838	21:00	21:16	TaggEff_20838.dat	 107M	16	tagg eff 5 kHz on Pb-glass 10um Cu
+2008-12-14	20839	21:24	21:36	TaggEff_20839.dat	  79M	12	Tagg Eff background Pb glass out
+######
+######  "GOOD RUNS" Begin here.
+#
+2008-12-16	20840	14:39	14:45	TaggEff_20840.dat	  46M	 6	TaggEff background, lH2, 3mm colli
+2008-12-16	20841	14:49	15:04	TaggEff_20841.dat	 107M	15	TaggEff PARA lH2, 3mm colli
+2008-12-16	20842	15:05	15:21	TaggEff_20842.dat	 116M	16	TaggEff, PERP, lH2, 3mm colli
+2008-12-16	20843	15:25	15:40	TaggEff_20843.dat	 111M	15	TaggEff, AMOR, lH2, 3mm colli
+2008-12-16	20844	15:44	15:52	TaggEff_20844.dat	  53M	 8	TaggEff Background
+#
+2008-12-17	20885	15:09	15:19	TaggEff_20885.dat	  69M	10	TaggEff Background 
+2008-12-17	20886	15:24	15:47	TaggEff_20886.dat	 149M	23	Tageff Perp 5kHz PbGlass
+2008-12-17	20887	15:53	16:13	TaggEff_20887.dat	 133M	20	tageff para
+2008-12-17	20888	16:19	16:32	TaggEff_20888.dat	  94M	13	tageff cu 10um 5kHz
+2008-12-17	20889	16:35	16:39	TaggEff_20889.dat	  30M	 4	taggeff background 2
+#
+2008-12-18	20909	12:03	12:11	TaggEff_20909.dat	  52M	 8	TagEff Background
+2008-12-18	20910	12:15	12:48	TaggEff_20910.dat	 226M	33	TaggEff With Beam
+2008-12-18	20911	12:49	13:08	TaggEff_20911.dat	 136M	19	TaggEff With Beam PARA
+2008-12-18	20912	13:12	13:21	TaggEff_20912.dat	  69M	 9	TaggEff Background
+2008-12-18	20913	14:04	14:18	TaggEff_20913.dat	 100M	14	TaggEff with Beam, Cu Rad
+#
+2008-12-19	20949	12:29	12:39	TaggEff_20949.dat	  73M	10	TaggEff Background 
+2008-12-19	20950	12:44	13:11	TaggEff_20950.dat	 190M	27	TaggEff with Beam PARA
+2008-12-19	20951	13:12	13:39	TaggEff_20951.dat	 190M	27	TaggEff with Beam PERP
+2008-12-19	20952	13:43	14:01	TaggEff_20952.dat	 132M	18	TaggEff with Beam Cu Radiator
+2008-12-19	20953	14:08	14:18	TaggEff_20953.dat	  71M	10	TaggEff Background
+#
+2008-12-20	20976	14:45	14:55	TaggEff_20976.dat	  67M	10	background measurement
+2008-12-20	20977	15:33	15:44	TaggEff_20977.dat	  57M	11	taggeff perp 
+2008-12-20	20978	15:45	15:56	TaggEff_20978.dat	  46M	11	taggeff para
+2008-12-20	20979	16:01	16:11	TaggEff_20979.dat	  42M	10	taggeff copper
+2008-12-20	20980	16:16	16:24	TaggEff_20980.dat	  52M	 8	taggeff background
+#
+2008-12-22	21055	16:11	16:16	TaggEff_21055.dat	  38M	 5	taggeff background
+2008-12-22	21056	16:24	16:50	TaggEff_21056.dat	 110M	26	taggeff diamond, PARA
+2008-12-22	21057	16:54	17:19	TaggEff_21057.dat	 109M	25	taggeff, diamond, perp
+2008-12-22	21058	17:23	17:48	TaggEff_21058.dat	 103M	25	taggeff, copper
+2008-12-22	21059	17:52	17:57	TaggEff_21059.dat	  32M	 5	taggeff background

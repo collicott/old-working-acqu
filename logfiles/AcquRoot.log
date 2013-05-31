@@ -1,0 +1,22 @@
+Data processing type: Raw  chosen
+
+ ROOT Tree name: RawEvent_AR_Save for I/O
+
+ Branch: RawEvent_Hits, size 32768 added to offline analysis
+
+ Branch: RawEvent_Scalers, size 4192 added to offline analysis
+
+ Branch: Mk1_Header, size 120000 added to offline analysis
+
+Analysis Class: TA2UserAnalysis chosen
+ Analysis setup from file Analysis.dat
+
+ Data Server setup from file Server_OneFile.dat
+
+ TA2UserAnalysis analysis loaded into TAcquRoot Acqu-to-Root interface
+ TA2DataServer data server loaded into TAcquRoot Acqu-to-Root interface
+ 30264 ADC channels and 632 Scaler channels in data.
+
+ End file scratch/CB_20854.dat, 618208 events sorted, last event #618195
+TAcquRoot:  Online DAQ shut down...exiting event analysis loop
+ 

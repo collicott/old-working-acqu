@@ -1,0 +1,15 @@
+#!/bin/tcsh
+
+if ( $# == 0) then
+	/usr/bin/gvim $acqu/data/A2.Offline $acqu/data/Analysis.dat
+else if ( $1 == "MC") then
+	/usr/bin/gvim $acqu/data/A2.MC $acqu/data/Analysis_MC.dat
+else if ( $1 == "TE") then
+	/usr/bin/gvim $acqu/data/A2.TE $acqu/data/Analysis_TE.dat
+else
+	echo "Error: must input nothing, MC, or TE as"
+	echo "       as command line argument."
+	exit 0
+endif
+
+exit 0

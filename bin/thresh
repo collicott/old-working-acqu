@@ -1,0 +1,24 @@
+#!/bin/tcsh
+
+if ( ( $1 != 10) && ( $1 != 20)) then
+	echo "Error: incorrect threshold."
+	echo "       only 10 or 20 MeV"
+endif
+
+set thresh = $1 
+
+echo "Changing NaI and BaF2 cluster thresholds to $thresh MeV"
+
+unalias cwdcmd
+cd $acqu/data
+rm -f NaI.dat
+rm -f NaI_MC.dat
+rm -f BaF2.dat
+rm -f BaF2_MC.dat
+
+ln -s NaI_Thresh"$thresh"MeV.dat NaI.dat
+ln -s NaI_Thresh"$thresh"MeV_MC.dat NaI_MC.dat
+ln -s BaF2_Thresh"$thresh"MeV.dat BaF2.dat
+ln -s BaF2_Thresh"$thresh"MeV_MC.dat BaF2_MC.dat
+
+exit 0

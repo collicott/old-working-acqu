@@ -1,0 +1,21 @@
+Data processing type: Raw  chosen
+
+ ROOT Tree name: RawEvent_AR_Save for I/O
+
+ Branch: RawEvent_Hits, size 32768 added to offline analysis
+
+ Branch: RawEvent_Scalers, size 4192 added to offline analysis
+
+ Branch: Mk1_Header, size 120000 added to offline analysis
+
+ ROOT output stored in directory: $acqu/
+
+Analysis Class: TA2UserAnalysis chosen
+ Analysis setup from file CBTaggTAPSAnalysis.dat
+
+ Data Server setup from file Server_2012.dat
+
+ TA2UserAnalysis analysis loaded into TAcquRoot Acqu-to-Root interface
+ TA2DataServer data server loaded into TAcquRoot Acqu-to-Root interface
+ 30619 ADC channels and 620 Scaler channels in data.
+

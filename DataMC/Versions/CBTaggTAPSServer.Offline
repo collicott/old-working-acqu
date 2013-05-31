@@ -1,0 +1,235 @@
+##-----------------------------------------------------------------------
+##--Author	JRM Annand   13th Jan 2004
+##--Update	JRM Annand... 1st Dec 2004
+##--Description
+##                *** Acqu++ <-> Root ***
+## Online/Offline Analysis of Sub-Atomic Physics Experimental Data 
+##
+## Parameter File: FPcommServer.Offline
+## Configuration file for DataServer (data input for analysis)
+##
+##-----------------------------------------------------------------------
+## Number of Input streams (sources of data), Record length to write data
+## and switch 0/1 = no/yes to control data write
+##              Number streams	Record Len	Save Data
+Input-Streams:	1		32768		0
+##
+## Optional directory spec. If not specified File-Names must contain the full
+## directory path
+#File-Directory:	july_compton/
+#File-Directory:	august_compton/
+File-Directory:	thresh_pi0/
+##
+## Specify each input stream
+## From disk file, ACQU (Mk1) format, save any output to file (save=1)
+## Input data record length, Output data record length
+##
+##            	Source	Format	Save?	RecLen	Buffers	Swap	MarkID
+#Stream-Spec:	File	Mk1	0	32768	32	1	400
+#File-Name:	CB_Mk1_0.dat	0	0
+#Stream-Spec:	File	Mk1	0	32768	32	1	400
+#File-Name:  Tagger_Mk1_0.dat	0	0
+#Stream-Spec:	File	TAPS	0	32768	32	0	29000
+## merge-fix options for TAPS
+##              Offset  Nsearch	MaxDiff Max-ID
+#Stream-Options: 1	1	10	19993
+#File-Name:	CB_TAPS_0.dat	0	0
+##
+##----------------------------------------------------------------------
+##
+## Now the list of data files to analyse normal mode
+## Tagger test data files
+##		File Name	1st rec	Last rec
+Stream-Spec:	File	Mk1	0	32768	32	0	400
+#
+## Compton Test August 2008
+#File-Name:	CB_17900.dat	0	0
+#File-Name:	CB_17901.dat	0	0
+#File-Name:	CB_17902.dat	0	0
+#File-Name:	CB_17903.dat	0	0
+#File-Name:	CB_17904.dat	0	0
+#File-Name:	CB_17905.dat	0	0
+#File-Name:	CB_17906.dat	0	0
+#File-Name:	CB_17907.dat	0	0
+#File-Name:	CB_17908.dat	0	0
+#File-Name:	CB_17909.dat	0	0
+#File-Name:	CB_17910.dat	0	0
+#
+## Compton Test July 2008
+#File-Name:	CB_16727.dat	0	0
+#File-Name:	CB_16728.dat	0	0
+#File-Name:	CB_16729.dat	0	0
+#File-Name:	CB_16730.dat	0	0
+#File-Name:	CB_16731.dat	0	0
+#File-Name:	CB_16734.dat	0	0
+#File-Name:	CB_16735.dat	0	0
+#File-Name:	CB_16736.dat	0	0
+#File-Name:	CB_16737.dat	0	0
+#File-Name:	CB_16738.dat	0	0
+#File-Name:	CB_16739.dat	0	0
+#File-Name:	CB_16740.dat	0	0
+#File-Name:	CB_16741.dat	0	0
+#File-Name:	CB_16742.dat	0	0
+#File-Name:	CB_16743.dat	0	0
+#File-Name:	CB_16744.dat	0	0
+#File-Name:	CB_16745.dat	0	0
+#File-Name:	CB_16746.dat	0	0
+#File-Name:	CB_16747.dat	0	0
+#File-Name:	CB_16748.dat	0	0
+#File-Name:	CB_16749.dat	0	0
+#File-Name:	CB_16750.dat	0	0
+#File-Name:	CB_16751.dat	0	0
+#File-Name:	CB_16752.dat	0	0
+#
+## December Threshold Pi0 Amorphous 
+File-Name:	CB_20856.dat	0	0
+#
+## December Threshold Pi0 Production Data; both Perp + Para together
+File-Name:	CB_20849.dat	0	0
+File-Name:	CB_20850.dat	0	0
+File-Name:	CB_20851.dat	0	0
+File-Name:	CB_20852.dat	0	0
+File-Name:	CB_20854.dat	0	0
+File-Name:	CB_20855.dat	0	0
+File-Name:	CB_20858.dat	0	0
+File-Name:	CB_20859.dat	0	0
+File-Name:	CB_20860.dat	0	0
+File-Name:	CB_20861.dat	0	0
+File-Name:	CB_20862.dat	0	0
+File-Name:	CB_20863.dat	0	0
+File-Name:	CB_20864.dat	0	0
+File-Name:	CB_20865.dat	0	0
+File-Name:	CB_20866.dat	0	0
+File-Name:	CB_20867.dat	0	0
+File-Name:	CB_20868.dat	0	0
+File-Name:	CB_20869.dat	0	0
+File-Name:	CB_20870.dat	0	0
+File-Name:	CB_20871.dat	0	0
+File-Name:	CB_20872.dat	0	0
+File-Name:	CB_20873.dat	0	0
+File-Name:	CB_20874.dat	0	0
+File-Name:	CB_20875.dat	0	0
+File-Name:	CB_20879.dat	0	0
+File-Name:	CB_20880.dat	0	0
+File-Name:	CB_20883.dat	0	0
+File-Name:	CB_20884.dat	0	0
+File-Name:	CB_20890.dat	0	0
+File-Name:	CB_20893.dat	0	0
+File-Name:	CB_20894.dat	0	0
+File-Name:	CB_20895.dat	0	0
+File-Name:	CB_20896.dat	0	0
+File-Name:	CB_20897.dat	0	0
+File-Name:	CB_20898.dat	0	0
+File-Name:	CB_20899.dat	0	0
+File-Name:	CB_20900.dat	0	0
+File-Name:	CB_20901.dat	0	0
+File-Name:	CB_20902.dat	0	0
+File-Name:	CB_20903.dat	0	0
+File-Name:	CB_20904.dat	0	0
+File-Name:	CB_20905.dat	0	0
+File-Name:	CB_20906.dat	0	0
+File-Name:	CB_20907.dat	0	0
+File-Name:	CB_20908.dat	0	0
+File-Name:	CB_20914.dat	0	0
+File-Name:	CB_20915.dat	0	0
+File-Name:	CB_20916.dat	0	0
+File-Name:	CB_20917.dat	0	0
+File-Name:	CB_20918.dat	0	0
+File-Name:	CB_20919.dat	0	0
+File-Name:	CB_20920.dat	0	0
+File-Name:	CB_20921.dat	0	0
+File-Name:	CB_20922.dat	0	0
+File-Name:	CB_20923.dat	0	0
+File-Name:	CB_20924.dat	0	0
+File-Name:	CB_20925.dat	0	0
+File-Name:	CB_20926.dat	0	0
+File-Name:	CB_20927.dat	0	0
+File-Name:	CB_20928.dat	0	0
+File-Name:	CB_20929.dat	0	0
+File-Name:	CB_20930.dat	0	0
+File-Name:	CB_20931.dat	0	0
+File-Name:	CB_20932.dat	0	0
+File-Name:	CB_20933.dat	0	0
+File-Name:	CB_20934.dat	0	0
+File-Name:	CB_20935.dat	0	0
+File-Name:	CB_20936.dat	0	0
+File-Name:	CB_20937.dat	0	0
+File-Name:	CB_20938.dat	0	0
+File-Name:	CB_20939.dat	0	0
+File-Name:	CB_20940.dat	0	0
+File-Name:	CB_20941.dat	0	0
+File-Name:	CB_20942.dat	0	0
+File-Name:	CB_20943.dat	0	0
+File-Name:	CB_20944.dat	0	0
+File-Name:	CB_20945.dat	0	0
+File-Name:	CB_20946.dat	0	0
+File-Name:	CB_20947.dat	0	0
+File-Name:	CB_20948.dat	0	0
+File-Name:	CB_20954.dat	0	0
+File-Name:	CB_20955.dat	0	0
+File-Name:	CB_20956.dat	0	0
+File-Name:	CB_20957.dat	0	0
+File-Name:	CB_20958.dat	0	0
+File-Name:	CB_20959.dat	0	0
+File-Name:	CB_20960.dat	0	0
+File-Name:	CB_20961.dat	0	0
+File-Name:	CB_20962.dat	0	0
+File-Name:	CB_20986.dat	0	0
+File-Name:	CB_20987.dat	0	0
+File-Name:	CB_20988.dat	0	0
+File-Name:	CB_20989.dat	0	0
+File-Name:	CB_20990.dat	0	0
+File-Name:	CB_20991.dat	0	0
+File-Name:	CB_20992.dat	0	0
+File-Name:	CB_20993.dat	0	0
+File-Name:	CB_20994.dat	0	0
+File-Name:	CB_20995.dat	0	0
+File-Name:	CB_20996.dat	0	0
+File-Name:	CB_20997.dat	0	0
+File-Name:	CB_20998.dat	0	0
+File-Name:	CB_20999.dat	0	0
+File-Name:	CB_21000.dat	0	0
+File-Name:	CB_21001.dat	0	0
+File-Name:	CB_21002.dat	0	0
+File-Name:	CB_21003.dat	0	0
+File-Name:	CB_21006.dat	0	0
+File-Name:	CB_21007.dat	0	0
+File-Name:	CB_21008.dat	0	0
+File-Name:	CB_21009.dat	0	0
+File-Name:	CB_21011.dat	0	0
+File-Name:	CB_21012.dat	0	0
+File-Name:	CB_21013.dat	0	0
+File-Name:	CB_21014.dat	0	0
+File-Name:	CB_21015.dat	0	0
+File-Name:	CB_21016.dat	0	0
+File-Name:	CB_21017.dat	0	0
+File-Name:	CB_21018.dat	0	0
+File-Name:	CB_21019.dat	0	0
+File-Name:	CB_21020.dat	0	0
+File-Name:	CB_21021.dat	0	0
+File-Name:	CB_21022.dat	0	0
+File-Name:	CB_21023.dat	0	0
+File-Name:	CB_21024.dat	0	0
+File-Name:	CB_21025.dat	0	0
+File-Name:	CB_21026.dat	0	0
+File-Name:	CB_21027.dat	0	0
+File-Name:	CB_21028.dat	0	0
+File-Name:	CB_21031.dat	0	0
+File-Name:	CB_21032.dat	0	0
+File-Name:	CB_21033.dat	0	0
+File-Name:	CB_21034.dat	0	0
+File-Name:	CB_21035.dat	0	0
+File-Name:	CB_21036.dat	0	0
+File-Name:	CB_21037.dat	0	0
+File-Name:	CB_21040.dat	0	0
+File-Name:	CB_21041.dat	0	0
+File-Name:	CB_21042.dat	0	0
+File-Name:	CB_21043.dat	0	0
+File-Name:	CB_21046.dat	0	0
+File-Name:	CB_21047.dat	0	0
+File-Name:	CB_21048.dat	0	0
+File-Name:	CB_21049.dat	0	0
+File-Name:	CB_21051.dat	0	0
+File-Name:	CB_21052.dat	0	0
+#
+## END
